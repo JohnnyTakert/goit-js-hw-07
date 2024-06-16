@@ -6,21 +6,21 @@ let boxesContainer = document.querySelector("#boxes");
 function getRandomHexColor() {
   return `#${Math.floor(Math.random() * 16777215)
     .toString(16)
-    .padStart(6, 0)}`;
+    .padStart(6, "0")}`;
 }
 
 function createBoxes(amount) {
-  let elements = [];
+  const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < amount; i++) {
-    let element = document.createElement("div");
+    const element = document.createElement("div");
     element.style.width = `${30 + i * 10}px`;
     element.style.height = `${30 + i * 10}px`;
     element.style.backgroundColor = getRandomHexColor();
-    elements.push(element);
+    fragment.appendChild(element);
   }
 
-  return elements;
+  boxesContainer.appendChild(fragment);
 }
 
 function destroyBoxes() {
@@ -37,8 +37,7 @@ createButton.addEventListener("click", function () {
 
   destroyBoxes();
 
-  let boxes = createBoxes(amount);
-  boxes.forEach((box) => boxesContainer.appendChild(box));
+  createBoxes(amount);
 
   input.value = "";
 });
